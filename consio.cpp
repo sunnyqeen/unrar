@@ -199,6 +199,8 @@ static void GetPasswordText(std::wstring &Str)
     fgets(StrA.data(),StrA.size()-1,stdin);
 #elif defined(__sun)
     strncpyz(StrA.data(),getpassphrase(""),StrA.size());
+#elif defined(PS5)
+    getwstr(Str);
 #else
     strncpyz(StrA.data(),getpass(""),StrA.size());
 #endif
