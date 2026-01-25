@@ -43,5 +43,7 @@ jobs:
         with:
           name: unrar
           path: |
+            ./homebrew.js
             ./unrar.elf
+            ./sce_sys/icon0.png
           if-no-files-found: error
