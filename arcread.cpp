@@ -1382,6 +1382,9 @@ void Archive::ConvertAttributes()
       {
         // Mapping MSDOS, OS/2 and Windows file attributes to Unix.
 
+#ifdef PS5
+        FileHead.FileAttr=0777 & ~mask;
+#else
         if (FileHead.FileAttr & 0x10) // FILE_ATTRIBUTE_DIRECTORY
         {
           // For directories we use 0777 mask.
@@ -1399,6 +1402,7 @@ void Archive::ConvertAttributes()
             // instead of 0777 as for directories.
             FileHead.FileAttr=0666 & ~mask;
           }
+#endif
       }
       break;
     case HSYS_UNIX:
