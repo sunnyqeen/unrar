@@ -36,7 +36,7 @@ jobs:
       - name: Build Payload
         run: |
           export PS5_PAYLOAD_SDK=/opt/ps5-payload-sdk
-          make -f makefile.ps5
+          make -f makefile.ps5 all lib
 
       - name: Upload Payload artifact
         uses: actions/upload-artifact@v4
@@ -45,5 +45,6 @@ jobs:
           path: |
             ./homebrew.js
             ./unrar.elf
+            ./libunrar.a
             ./sce_sys/icon0.png
           if-no-files-found: error

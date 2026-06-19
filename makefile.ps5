@@ -10,6 +10,7 @@ endif
 CXXFLAGS=-O2 -std=c++11 -Wno-logical-op-parentheses -Wno-switch -Wno-dangling-else
 DEFINES=-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DRAR_SMP -DPS5
 LDFLAGS=-lpthread
+LIBFLAGS=-fPIC
 
 ##########################
 
@@ -34,9 +35,15 @@ all:	unrar.elf
 clean:
 	@rm -f *.bak *~
 	@rm -f $(OBJECTS) $(UNRAR_OBJ)
-	@rm -f unrar.elf
+	@rm -f unrar.elf libunrar.*
 
 unrar.elf:	$(OBJECTS) $(UNRAR_OBJ)
 	@rm -f unrar.elf
 	$(LINK) -o unrar.elf $(LDFLAGS) $(OBJECTS) $(UNRAR_OBJ) $(LIBS)	
 	$(STRIP) unrar.elf
+
+lib:	WHAT=RARDLL
+lib:	CXXFLAGS+=$(LIBFLAGS)
+lib:	$(OBJECTS) $(LIB_OBJ)
+	@rm -f libunrar.*
+	$(AR) rcs libunrar.a $(OBJECTS) $(LIB_OBJ)
